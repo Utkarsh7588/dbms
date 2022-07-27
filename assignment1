@@ -90,3 +90,42 @@ mysql> select * from lil_esports;
 | kappa#8954      | benched    |   32 |  11000 |
 +-----------------+------------+------+--------+
 6 rows in set (0.00 sec)
+mysql> select player, role  from lil_esports where  salary>16000;
++-----------------+------------+
+| player          | role       |
++-----------------+------------+
+| omiroxxx#6969   | duelist    |
+| UVM#5597        | initiator  |
+| blackheart#8937 | controller |
++-----------------+------------+
+3 rows in set (0.00 sec)
+
+
++-----------------+------------+------+--------+
+| player          | role       | age  | salary |
++-----------------+------------+------+--------+
+| kappa#8954      | benched    |   32 |  11000 |
+| UVM#5597        | initiator  |   19 |  18000 |
+| blackheart#8937 | controller |   19 |  19000 |
+| GenDrDoom#doit  | sentinal   |   18 |  16000 |
+| omiroxxx#6969   | duelist    |   17 |  20000 |
+| divine#8924     | duelist    |   17 |  15000 |
++-----------------+------------+------+--------+
+6 rows in set (0.00 sec)
+
+mysql> alter table lil_esports rename column player to player_name;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from lil_esports;
++-----------------+------------+------+--------+
+| player_name     | role       | age  | salary |
++-----------------+------------+------+--------+
+| omiroxxx#6969   | duelist    |   17 |  20000 |
+| UVM#5597        | initiator  |   19 |  18000 |
+| blackheart#8937 | controller |   19 |  19000 |
+| GenDrDoom#doit  | sentinal   |   18 |  16000 |
+| divine#8924     | duelist    |   17 |  15000 |
+| kappa#8954      | benched    |   32 |  11000 |
++-----------------+------------+------+--------+
+6 rows in set (0.00 sec)

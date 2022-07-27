@@ -1,0 +1,92 @@
+ubuntu@ubuntu-OptiPlex-5000:~$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.29-0ubuntu0.22.04.2 (Ubuntu)
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show database
+    -> s^C
+mysql> show database;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
+mysql> use uvm;
+ERROR 1049 (42000): Unknown database 'uvm'
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| hello              |
+| information_schema |
+| lil_esports        |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> use lil_esports;
+Database changed
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql> drop database lil_esports;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> use hello;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++-----------------+
+| Tables_in_hello |
++-----------------+
+| lil_esports     |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> select * from lil_esports;
++---------------+---------+------+--------+
+| player        | role    | age  | salary |
++---------------+---------+------+--------+
+| omiroxxx#6969 | duelist |   17 |  20000 |
++---------------+---------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> insert into lil_esports values("UVM#5597", "initiator", 19, 18000 );
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into lil_esports values("blackheart#8937", "controller", 19, 19000
+ );
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into lil_esports values("GenDrDoom#doit", "sentinal", 18, 16000 );
+
+Query OK, 1 row affected (0.03 sec)
+
+m
+mysql> insert into lil_esports values("divine#8924", "duelist", 17, 15000 );
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into lil_esports values("kappa#8954", "benched", 32, 11000 );
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from lil_esports;
++-----------------+------------+------+--------+
+| player          | role       | age  | salary |
++-----------------+------------+------+--------+
+| omiroxxx#6969   | duelist    |   17 |  20000 |
+| UVM#5597        | initiator  |   19 |  18000 |
+| blackheart#8937 | controller |   19 |  19000 |
+| GenDrDoom#doit  | sentinal   |   18 |  16000 |
+| divine#8924     | duelist    |   17 |  15000 |
+| kappa#8954      | benched    |   32 |  11000 |
++-----------------+------------+------+--------+
+6 rows in set (0.00 sec)

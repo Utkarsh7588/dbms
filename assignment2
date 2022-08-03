@@ -1,0 +1,118 @@
+mysql> use UVM;
+Database changed
+mysql> create table PRX(Player_id varchar(20) PRIMARY KEY,role varchar(35),age int,salary int\);
+ERROR: 
+Unknown command '\)'.
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '\)' at line 1
+mysql> create table PRX(Player_id varchar(20) PRIMARY KEY,role varchar(35),age int,salary int);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into PRX values("F0rsaken","Primary duelist",18, 190000),("Jingg","Secondary duelist",17 ,172000),("Benkai","Initiator and IGL",17 ,180000),("d4v41n","sentinal",20 ,170000),("mindfreak","controler",20 ,160000);
+Query OK, 5 rows affected (0.03 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from PRX;
++-----------+-------------------+------+--------+
+| Player_id | role              | age  | salary |
++-----------+-------------------+------+--------+
+| Benkai    | Initiator and IGL |   17 | 180000 |
+| d4v41n    | sentinal          |   20 | 170000 |
+| F0rsaken  | Primary duelist   |   18 | 190000 |
+| Jingg     | Secondary duelist |   17 | 172000 |
+| mindfreak | controler         |   20 | 160000 |
++-----------+-------------------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select Player_id,role  from PRX where salary<180000 AND salary>160000 ;
++-----------+-------------------+
+| Player_id | role              |
++-----------+-------------------+
+| d4v41n    | sentinal          |
+| Jingg     | Secondary duelist |
++-----------+-------------------+
+2 rows in set (0.00 sec)
+
+mysql> select Player_id,role  from PRX where BETWEEN 180000 AND 160000 ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 180000 AND 160000' at line 1
+mysql> select Player_id,role  from PRX where salary BETWEEN 180000 AND 160000 ;
+Empty set (0.00 sec)
+
+mysql> select Player_id,role from PRX where salary BETWEEN 160000 AND 180000 ;
++-----------+-------------------+
+| Player_id | role              |
++-----------+-------------------+
+| Benkai    | Initiator and IGL |
+| d4v41n    | sentinal          |
+| Jingg     | Secondary duelist |
+| mindfreak | controler         |
++-----------+-------------------+
+4 rows in set (0.00 sec)
+
+mysql> select Player_id,role from PRX where salary IN( 160000 , 180000) ;
++-----------+-------------------+
+| Player_id | role              |
++-----------+-------------------+
+| Benkai    | Initiator and IGL |
+| mindfreak | controler         |
++-----------+-------------------+
+2 rows in set (0.00 sec)
+
+mysql> select DISTINCT(age) from PRX ;
++------+
+| age  |
++------+
+|   17 |
+|   20 |
+|   18 |
++------+
+3 rows in set (0.02 sec)
+
+mysql> select DISTINCT(age)* from PRX ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from PRX' at line 1
+mysql> select *  DISTINCT(age) from PRX ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DISTINCT(age) from PRX' at line 1
+mysql> select DISTINCT(age),Player_id from PRX ;
++------+-----------+
+| age  | Player_id |
++------+-----------+
+|   17 | Benkai    |
+|   20 | d4v41n    |
+|   18 | F0rsaken  |
+|   17 | Jingg     |
+|   20 | mindfreak |
++------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select count(*) from PRX ;
++----------+
+| count(*) |
++----------+
+|        5 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select max(salary) from customer;
+ERROR 1146 (42S02): Table 'UVM.customer' doesn't exist
+mysql> select max(salary) from PRX;
++-------------+
+| max(salary) |
++-------------+
+|      190000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select max(salary),Player_id from PRX;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #2 of SELECT list contains nonaggregated column 'UVM.PRX.Player_id'; this is incompatible with sql_mode=only_full_group_by
+mysql> select max(salary,Player_id) from PRX;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',Player_id) from PRX' at line 1
+mysql> Select * from PRX where name like '%a%';
+ERROR 1054 (42S22): Unknown column 'name' in 'where clause'
+mysql> Select * from PRX where Player_id  like '%a%';
++-----------+-------------------+------+--------+
+| Player_id | role              | age  | salary |
++-----------+-------------------+------+--------+
+| Benkai    | Initiator and IGL |   17 | 180000 |
+| F0rsaken  | Primary duelist   |   18 | 190000 |
+| mindfreak | controler         |   20 | 160000 |
++-----------+-------------------+------+--------+
+3 rows in set (0.00 sec)

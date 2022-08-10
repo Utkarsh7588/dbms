@@ -1,0 +1,73 @@
+mysql> create table product_details(Product_id int AUTO_INCREMENT PRIMARY_KEY, Product_name varchar(20), Quantity int, Price int);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'PRIMARY_KEY, Product_name varchar(20), Quantity int, Price int)' at line 1
+mysql> create table product_details(Product_id int AUTO_INCREMENT PRIMARY KEY, Product_name varchar(20), Quantity int, Price int);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into product_details(Product_name,Quantity,Price) values("Pendrive", 100,900),("Harddisk", 200,3500),("Headphones", 1000,600),("DVD", 20,1500),("Speaker", 600,1200),("headphones", 1000,400);
+Query OK, 6 rows affected (0.03 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> create tablesales_details;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tablesales_details' at line 1
+mysql> select *from product_details;
++------------+--------------+----------+-------+
+| Product_id | Product_name | Quantity | Price |
++------------+--------------+----------+-------+
+|          1 | Pendrive     |      100 |   900 |
+|          2 | Harddisk     |      200 |  3500 |
+|          3 | Headphones   |     1000 |   600 |
+|          4 | DVD          |       20 |  1500 |
+|          5 | Speaker      |      600 |  1200 |
+|          6 | headphones   |     1000 |   400 |
++------------+--------------+----------+-------+
+6 rows in set (0.00 sec)
+
+mysql> create tablesales_details(Sale_no int AUTO_INCREMENT,Product_id int, Quantity int,Price int, Customer_name varchar(20));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tablesales_details(Sale_no int AUTO_INCREMENT,Product_id int, Quantity int,Price' at line 1
+mysql> create table sales_details(Sale_no int AUTO_INCREMENT,Product_id int, Quantity int,Price int, Customer_name varchar(20));
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+mysql> create table sales_details(Sale_no int,Product_id int, Quantity int,Price int, Customer_name varchar(20));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insetr into sales_details(2001,1,50,900,"Savni"),(2002,4,10,500,"Savni"),(2003,3,120,600,"Deepak"),(2004,5,420,1200,"Harsh"),(2005,2,40,3500,"Akash");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'insetr into sales_details(2001,1,50,900,"Savni"),(2002,4,10,500,"Savni"),(2003,3' at line 1
+mysql> insetr into sales_details values(2001,1,50,900,"Savni"),(2002,4,10,500,"Savni"),(2003,3,120,600,"Deepak"),(2004,5,420,1200,"Harsh"),(2005,2,40,3500,"Akash");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'insetr into sales_details values(2001,1,50,900,"Savni"),(2002,4,10,500,"Savni"),' at line 1
+mysql> insert into sales_details values(2001,1,50,900,"Savni"),(2002,4,10,500,"Savni"),(2003,3,120,600,"Deepak"),(2004,5,420,1200,"Harsh"),(2005,2,40,3500,"Akash");
+Query OK, 5 rows affected (0.03 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from sales_details;
++---------+------------+----------+-------+---------------+
+| Sale_no | Product_id | Quantity | Price | Customer_name |
++---------+------------+----------+-------+---------------+
+|    2001 |          1 |       50 |   900 | Savni         |
+|    2002 |          4 |       10 |   500 | Savni         |
+|    2003 |          3 |      120 |   600 | Deepak        |
+|    2004 |          5 |      420 |  1200 | Harsh         |
+|    2005 |          2 |       40 |  3500 | Akash         |
++---------+------------+----------+-------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> select product_details.Product_id,produsct_details.Product_name,sales_details.Sale_no,sales_details.Price from product_details inner join sales_details where product_details.Product_id=sales_details.Product_id);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> select product_details.Product_id,product_details.Product_name,sales_details.Sale_no,sales_details.Price from product_details inner join sales_details where product_details.Product_id=sales_details.Product_id);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> select product_details.Product_id,product_details.Product_name,sales_details.Sale_no,sales_details.Price from product_details inner join sales_details where product_details.Product_id=sales_details.Product_id;
++------------+--------------+---------+-------+
+| Product_id | Product_name | Sale_no | Price |
++------------+--------------+---------+-------+
+|          1 | Pendrive     |    2001 |   900 |
+|          4 | DVD          |    2002 |   500 |
+|          3 | Headphones   |    2003 |   600 |
+|          5 | Speaker      |    2004 |  1200 |
+|          2 | Harddisk     |    2005 |  3500 |
++------------+--------------+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select product_details.Product_id,product_details.Product_name,sales_details.Sale_no from product_details left join sales_details where product_details.Product_id=sales_details.Product_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where product_details.Product_id=sales_details.Product_id' at line 1
+mysql> select sales_details.Sale_no from product_details left join sales_details where product_details.Product_id=sales_details.Product_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where product_details.Product_id=sales_details.Product_id' at line 1
+mysql> 
+

@@ -1,0 +1,99 @@
+mysql> create table employee();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> create table employee(emp_id int Primary key auto_increment,emp_name varchar(20),branch varchar(20),salary int);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into employee(emp_name, branch, salary) value ("Pranjal","Pune", 180000),("Prashant", "Mumbai", 190000),("Om","Pune",175000),("Atharva", "Banglore",185000),("Hemant","Banglore",200000),("Utkarsh","Nagpure",160000);
+Query OK, 6 rows affected (0.03 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select 8 from employee;
++---+
+| 8 |
++---+
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
++---+
+6 rows in set (0.00 sec)
+
+mysql> select 8 from Employee;
+ERROR 1146 (42S02): Table 'Employee.Employee' doesn't exist
+mysql> select * from Employee;
+ERROR 1146 (42S02): Table 'Employee.Employee' doesn't exist
+mysql> select * from employee;
++--------+----------+----------+--------+
+| emp_id | emp_name | branch   | salary |
++--------+----------+----------+--------+
+|      1 | Pranjal  | Pune     | 180000 |
+|      2 | Prashant | Mumbai   | 190000 |
+|      3 | Om       | Pune     | 175000 |
+|      4 | Atharva  | Banglore | 185000 |
+|      5 | Hemant   | Banglore | 200000 |
+|      6 | Utkarsh  | Nagpure  | 160000 |
++--------+----------+----------+--------+
+6 rows in set (0.00 sec)
+
+mysql> Select emp_name, salary from employee where salary>(select salary from employee where emp_name=Om);
+ERROR 1054 (42S22): Unknown column 'Om' in 'where clause'
+mysql> Select emp_name, salary from employee where salary>(select salary from employee where emp_name="Om");
++----------+--------+
+| emp_name | salary |
++----------+--------+
+| Pranjal  | 180000 |
+| Prashant | 190000 |
+| Atharva  | 185000 |
+| Hemant   | 200000 |
++----------+--------+
+4 rows in set (0.00 sec)
+
+mysql> Select emp_name, salary from employee where salary>(select salary from employee where emp_name="Om") order by salary ;
++----------+--------+
+| emp_name | salary |
++----------+--------+
+| Pranjal  | 180000 |
+| Atharva  | 185000 |
+| Prashant | 190000 |
+| Hemant   | 200000 |
++----------+--------+
+4 rows in set (0.00 sec)
+
+mysql> Select branch , sum(salary) from employee having group by (branch);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'group by (branch)' at line 1
+mysql> Select branch , sum(salary) from employee having group by branch;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'group by branch' at line 1
+mysql> Select branch , sum(salary) from employee group by branch;
++----------+-------------+
+| branch   | sum(salary) |
++----------+-------------+
+| Pune     |      355000 |
+| Mumbai   |      190000 |
+| Banglore |      385000 |
+| Nagpure  |      160000 |
++----------+-------------+
+4 rows in set (0.02 sec)
+
+mysql> Select branch , avg(salary) from employee group by branch;
++----------+-------------+
+| branch   | avg(salary) |
++----------+-------------+
+| Pune     | 177500.0000 |
+| Mumbai   | 190000.0000 |
+| Banglore | 192500.0000 |
+| Nagpure  | 160000.0000 |
++----------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> Select branch , max(salary) from employee group by branch having count(emp_name)>1;
++----------+-------------+
+| branch   | max(salary) |
++----------+-------------+
+| Pune     |      180000 |
+| Banglore |      200000 |
++----------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> 
